@@ -110,9 +110,8 @@ open class FirefoxAccount {
                                 unwrapkB: Data) -> FirefoxAccount {
         var state: FxAState! = nil
         if !verified {
-            let now = Date.now()
             state = EngagedBeforeVerifiedState(knownUnverifiedAt: now,
-                lastNotifiedUserAt: now,
+                lastNotifiedUserAt: .now(),
                 sessionToken: sessionToken,
                 keyFetchToken: keyFetchToken,
                 unwrapkB: unwrapkB

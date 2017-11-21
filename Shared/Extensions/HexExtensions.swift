@@ -8,7 +8,7 @@ extension String {
     public var hexDecodedData: Data {
         // Convert to a CString and make sure it has an even number of characters (terminating 0 is included, so we
         // check for uneven!)
-        guard let cString = self.cString(using: String.Encoding.ascii), (cString.count % 2) == 1 else {
+        guard let cString = self.cString(using: .ascii), (cString.count % 2) == 1 else {
             return Data()
         }
 
@@ -65,6 +65,6 @@ extension Data {
 
 extension Data {
     public var base64EncodedString: String {
-        return self.base64EncodedString(options: NSData.Base64EncodingOptions())
+        return self.base64EncodedString(options: [])
     }
 }

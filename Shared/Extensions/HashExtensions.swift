@@ -22,12 +22,12 @@ extension Data {
 
 extension String {
     public var sha1: Data {
-        let data = self.data(using: String.Encoding.utf8)!
+        let data = self.data(using: .utf8)!
         return data.sha1
     }
 
     public var sha256: Data {
-        let data = self.data(using: String.Encoding.utf8)!
+        let data = self.data(using: .utf8)!
         return data.sha256
     }
 }

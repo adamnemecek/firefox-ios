@@ -469,7 +469,7 @@ open class Sync15StorageClient {
             req.setValue(millisecondsToDecimalSeconds(ifUnmodifiedSince), forHTTPHeaderField: "X-If-Unmodified-Since")
         }
 
-        req.httpBody = body.data(using: String.Encoding.utf8)!
+        req.httpBody = body.data(using: .utf8)!
         let authorized: URLRequest = self.authorizer(req)
         return alamofire.request(authorized)
     }

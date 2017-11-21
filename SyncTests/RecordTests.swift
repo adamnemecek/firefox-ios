@@ -14,7 +14,7 @@ class RecordTests: XCTestCase {
     func testGUIDs() {
         let s = Bytes.generateGUID()
         print("Got GUID: \(s)", terminator: "\n")
-        XCTAssertEqual(12, s.lengthOfBytes(using: String.Encoding.utf8))
+        XCTAssertEqual(12, s.lengthOfBytes(using: .utf8))
     }
 
     func testSwiftyJSONSerializingControlChars() {
@@ -31,7 +31,7 @@ class RecordTests: XCTestCase {
 
     func testEnvelopeNullTTL() {
         let p = CleartextPayloadJSON(JSON(object: ["id": "guid"]))
-        let r = Record<CleartextPayloadJSON>(id: "guid", payload: p, modified: Date.now(), sortindex: 15, ttl: nil)
+        let r = Record<CleartextPayloadJSON>(id: "guid", payload: p, modified: .now(), sortindex: 15, ttl: nil)
         let k = KeyBundle.random()
         let s = k.serializer({ $0.json })
         let json = s(r)!
