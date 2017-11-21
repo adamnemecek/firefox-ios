@@ -465,7 +465,7 @@ class TabTrayController: UIViewController {
         UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: { () -> Void in
             fromView.transform = scaleDownTransform
             fromView.alpha = 0
-            toView.transform = CGAffineTransform.identity
+            toView.transform = .identity
             toView.alpha = 1
         }) { finished in
             if fromView != self.emptyPrivateTabsView {
@@ -531,7 +531,7 @@ extension TabTrayController {
     func appDidBecomeActiveNotification() {
         // Re-show any components that might have been hidden because they were being displayed
         // as part of a private mode tab
-        UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
+        UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
             self.collectionView.alpha = 1
         },
         completion: nil)

@@ -181,7 +181,7 @@ class TabsButton: UIButton {
             oldFlipTransform = CATransform3DRotate(oldFlipTransform, CGFloat(-(Double.pi / 2)), 1.0, 0.0, 0.0)
             
             let animate = {
-                newTabsButton.insideButton.layer.transform = CATransform3DIdentity
+                newTabsButton.insideButton.layer.transform = .identity
                 self.insideButton.layer.transform = oldFlipTransform
                 self.insideButton.layer.opacity = 0
             }
@@ -191,7 +191,7 @@ class TabsButton: UIButton {
                 if completed || noActiveAnimations {
                     newTabsButton.removeFromSuperview()
                     self.insideButton.layer.opacity = 1
-                    self.insideButton.layer.transform = CATransform3DIdentity
+                    self.insideButton.layer.transform = .identity
                 }
                 self.accessibilityLabel = NSLocalizedString("Show Tabs", comment: "Accessibility label for the tabs button in the (top) tab toolbar")
                 self.countLabel.text = countToBe
@@ -199,14 +199,14 @@ class TabsButton: UIButton {
             }
             
             if animated {
-                UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: UIViewAnimationOptions(), animations: animate, completion: completion)
+                UIView.animate(withDuration: 1.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.0, options: [], animations: animate, completion: completion)
             } else {
                 completion(true)
             }
         }
     }
     func cloneDidClickTabs() {
-        sendActions(for: UIControlEvents.touchUpInside)
+        sendActions(for: .touchUpInside)
     }
 }
 
