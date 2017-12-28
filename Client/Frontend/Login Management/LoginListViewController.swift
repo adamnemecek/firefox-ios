@@ -395,8 +395,8 @@ fileprivate class ListSelectionController: NSObject {
     }
 
     func deselectIndexPath(_ indexPath: IndexPath) {
-        guard let foundSelectedPath = (selectedIndexPaths.filter { $0.row == indexPath.row && $0.section == indexPath.section }).first,
-              let indexToRemove = selectedIndexPaths.index(of: foundSelectedPath) else {
+        guard let path = (selectedIndexPaths.first { $0.row == indexPath.row && $0.section == indexPath.section }),
+              let indexToRemove = selectedIndexPaths.index(of: path) else {
             return
         }
 
