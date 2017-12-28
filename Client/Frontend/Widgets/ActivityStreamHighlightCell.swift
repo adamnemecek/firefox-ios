@@ -47,7 +47,7 @@ class ActivityStreamHighlightCell: UICollectionViewCell {
         descriptionLabel.textColor = ActivityStreamHighlightCellUX.DescriptionLabelColor
         descriptionLabel.textAlignment = .left
         descriptionLabel.numberOfLines = 1
-        descriptionLabel.setContentCompressionResistancePriority(1000, for: UILayoutConstraintAxis.vertical)
+        descriptionLabel.setContentCompressionResistancePriority(1000, for: .vertical)
         return descriptionLabel
     }()
 
@@ -141,8 +141,8 @@ class ActivityStreamHighlightCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.siteImageView.image = nil
-        contentView.backgroundColor = UIColor.clear
-        siteImageView.backgroundColor = UIColor.clear
+        contentView.backgroundColor = .clear
+        siteImageView.backgroundColor = .clear
     }
 
     func configureWithSite(_ site: Site) {
@@ -195,7 +195,7 @@ class HighlightIntroCell: UICollectionViewCell {
     lazy var titleLabel: UILabel = {
         let textLabel = UILabel()
         textLabel.font = DynamicFontHelper.defaultHelper.MediumSizeBoldFontAS
-        textLabel.textColor = UIColor.black
+        textLabel.textColor = .black
         textLabel.numberOfLines = 1
         textLabel.adjustsFontSizeToFitWidth = true
         textLabel.minimumScaleFactor = 0.8
@@ -205,7 +205,7 @@ class HighlightIntroCell: UICollectionViewCell {
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = DynamicFontHelper.defaultHelper.MediumSizeRegularWeightAS
-        label.textColor = UIColor.darkGray
+        label.textColor = .darkGray
         label.numberOfLines = 0
         return label
     }()

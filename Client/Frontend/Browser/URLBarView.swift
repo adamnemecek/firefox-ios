@@ -124,7 +124,7 @@ class URLBarView: UIView {
         let cancelButton = InsetButton()
         cancelButton.setImage(UIImage.templateImageNamed("goBack"), for: .normal)
         cancelButton.accessibilityIdentifier = "urlBar-cancel"
-        cancelButton.addTarget(self, action: #selector(URLBarView.SELdidClickCancel), for: .touchUpInside)
+        cancelButton.addTarget(self, action: #selector(SELdidClickCancel), for: .touchUpInside)
         cancelButton.alpha = 0
         return cancelButton
     }()
@@ -135,14 +135,14 @@ class URLBarView: UIView {
         button.accessibilityIdentifier = "urlBar-scanQRCode"
         button.clipsToBounds = false
         button.addTarget(self, action: #selector(URLBarView.showQRScanner), for: .touchUpInside)
-        button.setContentHuggingPriority(1000, for: UILayoutConstraintAxis.horizontal)
-        button.setContentCompressionResistancePriority(1000, for: UILayoutConstraintAxis.horizontal)
+        button.setContentHuggingPriority(1000, for: .horizontal)
+        button.setContentCompressionResistancePriority(1000, for: .horizontal)
         return button
     }()
 
     fileprivate lazy var scrollToTopButton: UIButton = {
         let button = UIButton()
-        button.addTarget(self, action: #selector(URLBarView.SELtappedScrollToTopArea), for: .touchUpInside)
+        button.addTarget(self, action: #selector(SELtappedScrollToTopArea), for: .touchUpInside)
         return button
     }()
 
@@ -316,11 +316,11 @@ class URLBarView: UIView {
         
         locationTextField.translatesAutoresizingMaskIntoConstraints = false
         locationTextField.autocompleteDelegate = self
-        locationTextField.keyboardType = UIKeyboardType.webSearch
-        locationTextField.autocorrectionType = UITextAutocorrectionType.no
-        locationTextField.autocapitalizationType = UITextAutocapitalizationType.none
-        locationTextField.returnKeyType = UIReturnKeyType.go
-        locationTextField.clearButtonMode = UITextFieldViewMode.whileEditing
+        locationTextField.keyboardType = .webSearch
+        locationTextField.autocorrectionType = .no
+        locationTextField.autocapitalizationType = .none
+        locationTextField.returnKeyType = .go
+        locationTextField.clearButtonMode = .whileEditing
         locationTextField.font = UIConstants.DefaultChromeFont
         locationTextField.accessibilityIdentifier = "address"
         locationTextField.accessibilityLabel = NSLocalizedString("Address and Search", comment: "Accessibility label for address and search field, both words (Address, Search) are therefore nouns.")

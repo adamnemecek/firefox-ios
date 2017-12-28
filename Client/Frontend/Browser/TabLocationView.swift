@@ -97,7 +97,7 @@ class TabLocationView: UIView {
         urlTextField.addGestureRecognizer(self.tapRecognizer)
 
         // Prevent the field from compressing the toolbar buttons on the 4S in landscape.
-        urlTextField.setContentCompressionResistancePriority(250, for: UILayoutConstraintAxis.horizontal)
+        urlTextField.setContentCompressionResistancePriority(250, for: .horizontal)
         urlTextField.attributedPlaceholder = self.placeholder
         urlTextField.accessibilityIdentifier = "url"
         urlTextField.accessibilityActionsSource = self
@@ -153,8 +153,8 @@ class TabLocationView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(TabLocationView.SELlongPressLocation))
-        tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(TabLocationView.SELtapLocation))
+        longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(SELlongPressLocation))
+        tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(SELtapLocation))
 
         addSubview(urlTextField)
         addSubview(lockImageView)
