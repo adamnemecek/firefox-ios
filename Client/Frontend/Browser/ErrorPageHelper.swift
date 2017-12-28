@@ -8,39 +8,9 @@ import GCDWebServers
 import Shared
 import Storage
 
-class ErrorPageHelper {
-    static let MozDomain = "mozilla"
-    static let MozErrorDownloadsNotEnabled = 100
-
-    fileprivate static let MessageOpenInSafari = "openInSafari"
-    fileprivate static let MessageCertVisitOnce = "certVisitOnce"
-
-    // When an error page is intentionally loaded, its added to this set. If its in the set, we show
-    // it as an error page. If its not, we assume someone is trying to reload this page somehow, and
-    // we'll instead redirect back to the original URL.
-    fileprivate static var redirecting = [URL]()
-
-    fileprivate static weak var certStore: CertStore?
-
-    // Regardless of cause, NSURLErrorServerCertificateUntrusted is currently returned in all cases.
-    // Check the other cases in case this gets fixed in the future.
-    fileprivate static let CertErrors = [
-        NSURLErrorServerCertificateUntrusted,
-        NSURLErrorServerCertificateHasBadDate,
-        NSURLErrorServerCertificateHasUnknownRoot,
-        NSURLErrorServerCertificateNotYetValid
-    ]
-
-    // Error codes copied from Gecko. The ints corresponding to these codes were determined
-    // by inspecting the NSError in each of these cases.
-    fileprivate static let CertErrorCodes = [
-        -9813: "SEC_ERROR_UNKNOWN_ISSUER",
-        -9814: "SEC_ERROR_EXPIRED_CERTIFICATE",
-        -9843: "SSL_ERROR_BAD_CERT_DOMAIN",
-    ]
-
-    class func cfErrorToName(_ err: CFNetworkErrors) -> String {
-        switch err {
+extension CFNetworkErrors : CustomStringConvertible {
+    public var description: String {
+        switch self {
         case .cfHostErrorHostNotFound: return "CFHostErrorHostNotFound"
         case .cfHostErrorUnknown: return "CFHostErrorUnknown"
         case .cfsocksErrorUnknownClientVersion: return "CFSOCKSErrorUnknownClientVersion"
@@ -126,8 +96,39 @@ class ErrorPageHelper {
         case .cfNetServiceErrorTimeout: return "CFNetServiceErrorTimeout"
         case .cfNetServiceErrorDNSServiceFailure: return "CFNetServiceErrorDNSServiceFailure"
         default: return "Unknown"
-        }
     }
+}
+
+class ErrorPageHelper {
+    static let MozDomain = "mozilla"
+    static let MozErrorDownloadsNotEnabled = 100
+
+    fileprivate static let MessageOpenInSafari = "openInSafari"
+    fileprivate static let MessageCertVisitOnce = "certVisitOnce"
+
+    // When an error page is intentionally loaded, its added to this set. If its in the set, we show
+    // it as an error page. If its not, we assume someone is trying to reload this page somehow, and
+    // we'll instead redirect back to the original URL.
+    fileprivate static var redirecting = [URL]()
+
+    fileprivate static weak var certStore: CertStore?
+
+    // Regardless of cause, NSURLErrorServerCertificateUntrusted is currently returned in all cases.
+    // Check the other cases in case this gets fixed in the future.
+    fileprivate static let CertErrors = [
+        NSURLErrorServerCertificateUntrusted,
+        NSURLErrorServerCertificateHasBadDate,
+        NSURLErrorServerCertificateHasUnknownRoot,
+        NSURLErrorServerCertificateNotYetValid
+    ]
+
+    // Error codes copied from Gecko. The ints corresponding to these codes were determined
+    // by inspecting the NSError in each of these cases.
+    fileprivate static let CertErrorCodes = [
+        -9813: "SEC_ERROR_UNKNOWN_ISSUER",
+        -9814: "SEC_ERROR_EXPIRED_CERTIFICATE",
+        -9843: "SSL_ERROR_BAD_CERT_DOMAIN",
+    ]
 
     class func register(_ server: WebServer, certStore: CertStore?) {
         self.certStore = certStore
@@ -164,7 +165,7 @@ class ErrorPageHelper {
 
             if errDomain == kCFErrorDomainCFNetwork as String {
                 if let code = CFNetworkErrors(rawValue: Int32(errCode)) {
-                    errDomain = self.cfErrorToName(code)
+                    errDomain = code.description
                 }
             } else if errDomain == ErrorPageHelper.MozDomain {
                 if errCode == ErrorPageHelper.MozErrorDownloadsNotEnabled {
