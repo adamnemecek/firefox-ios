@@ -20,9 +20,9 @@ private class HighlightableButton: UIButton {
     override var isHighlighted: Bool {
         didSet {
             if isHighlighted {
-                self.backgroundColor = UIColor.white
+                self.backgroundColor = .white
             } else {
-                self.backgroundColor = UIColor.clear
+                self.backgroundColor = .clear
             }
         }
     }
@@ -45,7 +45,7 @@ class ButtonToast: UIView {
     }()
     
     init(labelText: String, descriptionText: String? = nil, buttonText: String, completion:@escaping (_ buttonPressed: Bool) -> Void) {
-        super.init(frame: CGRect.zero)
+        super.init(frame: .zero)
         completionHandler = completion
         
         self.clipsToBounds = true
@@ -66,7 +66,7 @@ class ButtonToast: UIView {
     
     fileprivate func createView(_ labelText: String, descriptionText: String?, buttonText: String) -> UIView {
         let label = UILabel()
-        label.textColor = UIColor.white
+        label.textColor = .white
         label.font = SimpleToastUX.ToastFont
         label.text = labelText
         label.lineBreakMode = .byWordWrapping
@@ -92,7 +92,7 @@ class ButtonToast: UIView {
         
         if let text = descriptionText {
             let textLabel = UILabel()
-            textLabel.textColor = UIColor.white
+            textLabel.textColor = .white
             textLabel.font = SimpleToastUX.ToastFont
             textLabel.text = text
             textLabel.lineBreakMode = .byTruncatingTail

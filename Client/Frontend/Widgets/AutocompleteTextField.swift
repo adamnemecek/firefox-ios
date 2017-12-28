@@ -194,7 +194,7 @@ class AutocompleteTextField: UITextField, UITextFieldDelegate {
     }
 
     override func caretRect(for position: UITextPosition) -> CGRect {
-        return hideCursor ? CGRect.zero : super.caretRect(for: position)
+        return hideCursor ? .zero : super.caretRect(for: position)
     }
 
     private func createAutocompleteLabelWith(_ autocompleteText: NSAttributedString) -> UILabel {

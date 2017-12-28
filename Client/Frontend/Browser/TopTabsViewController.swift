@@ -39,7 +39,7 @@ class TopTabsViewController: UIViewController {
     let faviconNotification = NSNotification.Name(rawValue: FaviconManager.FaviconDidLoad)
 
     lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: TopTabsViewLayout())
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: TopTabsViewLayout())
         collectionView.register(TopTabCell.self, forCellWithReuseIdentifier: TopTabCell.Identifier)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
@@ -441,7 +441,7 @@ extension TopTabsViewController {
     fileprivate func reloadData() {
         assertIsMainThread("reloadData must only be called from main thread")
 
-        if self.isUpdating || self.collectionView.frame == CGRect.zero {
+        if self.isUpdating || self.collectionView.frame == .zero {
             self.pendingReloadData = true
             return
         }
@@ -491,7 +491,7 @@ extension TopTabsViewController: TabManagerDelegate {
 
     // This helps make sure animations don't happen before the view is loaded.
     fileprivate var isRestoring: Bool {
-        return self.tabManager.isRestoring || self.collectionView.frame == CGRect.zero
+        return self.tabManager.isRestoring || self.collectionView.frame == .zero
     }
 
     func tabManager(_ tabManager: TabManager, didSelectedTabChange selected: Tab?, previous: Tab?) {
