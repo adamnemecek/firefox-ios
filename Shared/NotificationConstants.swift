@@ -26,6 +26,10 @@ public let NotificationDataRemoteLoginChangesWereApplied = Notification.Name("No
 public let NotificationFirefoxAccountVerified = Notification.Name("FirefoxAccountVerifiedNotification")
 
 // MARK: Notification UserInfo Keys
-public let NotificationUserInfoKeyHasSyncableAccount = Notification.Name("NotificationUserInfoKeyHasSyncableAccount")
 
-public let NotificationDidRestoreSession = Notification.Name("NotificationDidRestoreSession")
+extension Notification.Name {
+    public static let DidRestoreSession = Notification.Name("NotificationDidRestoreSession")
+
+    public static let UserInfoKeyHasSyncableAccount = Notification.Name("NotificationUserInfoKeyHasSyncableAccount")
+
+}
