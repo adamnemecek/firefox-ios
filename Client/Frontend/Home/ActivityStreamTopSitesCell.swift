@@ -231,7 +231,7 @@ class ASHorizontalScrollCell: UICollectionViewCell {
     }()
 
     lazy fileprivate var pageControlPress: UITapGestureRecognizer = {
-        let press = UITapGestureRecognizer(target: self, action: #selector(ASHorizontalScrollCell.handlePageTap))
+        let press = UITapGestureRecognizer(target: self, action: #selector(handlePageTap))
    //     press.delegate = self
         return press
     }()
@@ -250,7 +250,7 @@ class ASHorizontalScrollCell: UICollectionViewCell {
         super.init(frame: frame)
         isAccessibilityElement = false
         accessibilityIdentifier = "TopSitesCell"
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
         contentView.addSubview(collectionView)
         contentView.addSubview(pageControl)
 
@@ -322,9 +322,9 @@ class HorizontalFlowLayout: UICollectionViewLayout {
     override func prepare() {
         super.prepare()
         if boundsSize != self.collectionView?.frame.size {
-            self.collectionView?.setContentOffset(CGPoint.zero, animated: false)
+            self.collectionView?.setContentOffset(.zero, animated: false)
         }
-        boundsSize = self.collectionView?.frame.size ?? CGSize.zero
+        boundsSize = self.collectionView?.frame.size ?? .zero
         cachedAttributes = nil
         register(EmptyTopsiteDecorationCell.self, forDecorationViewOfKind: ASHorizontalScrollCellUX.TopSiteEmptyCellIdentifier)
     }
@@ -472,7 +472,7 @@ class HorizontalFlowLayout: UICollectionViewLayout {
     Defines the number of items to show in topsites for different size classes.
 */
 private struct ASTopSiteSourceUX {
-    static let verticalItemsForTraitSizes = [UIUserInterfaceSizeClass.compact: 1, UIUserInterfaceSizeClass.regular: 2, UIUserInterfaceSizeClass.unspecified: 0]
+    static let verticalItemsForTraitSizes: [UIUserInterfaceSizeClass: Int] = [.compact: 1, .regular: 2, .unspecified: 0]
     static let maxNumberOfPages = 2
     static let CellIdentifier = "TopSiteItemCell"
 }

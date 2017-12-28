@@ -131,7 +131,7 @@ class BookmarksPanel: SiteTableViewController, HomePanel {
 
     fileprivate func createEmptyStateOverlayView() -> UIView {
         let overlayView = UIView()
-        overlayView.backgroundColor = UIColor.white
+        overlayView.backgroundColor = .white
 
         let logoImageView = UIImageView(image: UIImage(named: "emptyBookmarks"))
         overlayView.addSubview(logoImageView)
@@ -435,7 +435,7 @@ class BookmarksPanel: SiteTableViewController, HomePanel {
 
         self.tableView.beginUpdates()
         self.source = source.removeGUIDFromCurrent(bookmark.guid)
-        self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.left)
+        self.tableView.deleteRows(at: [indexPath], with: .left)
         self.tableView.endUpdates()
         self.updateEmptyPanelState()
     }

@@ -359,19 +359,19 @@ class SearchViewController: SiteTableViewController, KeyboardHelperDelegate, Loa
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if let currentSection = SearchListSection(rawValue: indexPath.section) {
-            switch currentSection {
-            case .searchSuggestions:
-                // heightForRowAtIndexPath is called *before* the cell is created, so to get the height,
-                // force a layout pass first.
-                suggestionCell.layoutIfNeeded()
-                return suggestionCell.frame.height
-            default:
-                return super.tableView(tableView, heightForRowAt: indexPath)
-            }
+        guard let currentSection = SearchListSection(rawValue: indexPath.section) else {
+            return 0
         }
 
-        return 0
+        switch currentSection {
+        case .searchSuggestions:
+            // heightForRowAtIndexPath is called *before* the cell is created, so to get the height,
+            // force a layout pass first.
+            suggestionCell.layoutIfNeeded()
+            return suggestionCell.frame.height
+        default:
+            return super.tableView(tableView, heightForRowAt: indexPath)
+        }
     }
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -486,8 +486,8 @@ fileprivate class SuggestionCell: UITableViewCell {
         separatorInset = .zero
         selectionStyle = .none
 
-        container.backgroundColor = UIColor.clear
-        contentView.backgroundColor = UIColor.clear
+        container.backgroundColor = .clear
+        contentView.backgroundColor = .clear
         backgroundColor = UIColor.clear
         contentView.addSubview(container)
     }

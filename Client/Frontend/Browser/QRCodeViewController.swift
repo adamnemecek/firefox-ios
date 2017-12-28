@@ -81,9 +81,9 @@ class QRCodeViewController: UIViewController {
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "qrcode-light"), style: .plain, target: self, action: #selector(openLight))
         if captureDevice.hasTorch {
-            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+            self.navigationItem.rightBarButtonItem?.tintColor = .white
         } else {
-            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.gray
+            self.navigationItem.rightBarButtonItem?.tintColor = .gray
             self.navigationItem.rightBarButtonItem?.isEnabled = false
         }
 
