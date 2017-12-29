@@ -89,8 +89,8 @@ class DiskReaderModeCache: ReaderModeCache {
 
     func get(_ url: URL) throws -> ReadabilityResult {
         if let (_, contentFilePath) = cachePathsForURL(url), FileManager.default.fileExists(atPath: contentFilePath) {
-            let string = try NSString(contentsOfFile: contentFilePath, encoding: String.Encoding.utf8.rawValue)
-            if let value = ReadabilityResult(string: string as String) {
+            let string = try String(contentsOfFile: contentFilePath, encoding: .utf8)
+            if let value = ReadabilityResult(string: string) {
                 return value
             }
         }
@@ -119,7 +119,7 @@ class DiskReaderModeCache: ReaderModeCache {
     }
 
     fileprivate func cachePathsForURL(_ url: URL) -> (cacheDirectoryPath: String, contentFilePath: String)? {
-        let paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true)
+        let paths = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
         if !paths.isEmpty, let hashedPath = hashedPathForURL(url) {
             let cacheDirectoryURL = URL(fileURLWithPath: NSString.path(withComponents: [paths[0], "ReaderView", hashedPath]))
             return (cacheDirectoryURL.path, cacheDirectoryURL.appendingPathComponent("content.json").path)

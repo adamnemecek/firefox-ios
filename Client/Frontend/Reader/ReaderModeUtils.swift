@@ -20,7 +20,7 @@ struct ReaderModeUtils {
     static func generateReaderContent(_ readabilityResult: ReadabilityResult, initialStyle: ReaderModeStyle) -> String? {
         if let stylePath = Bundle.main.path(forResource: "Reader", ofType: "css") {
             do {
-                let css = try NSString(contentsOfFile: stylePath, encoding: String.Encoding.utf8.rawValue)
+                let css = try String(contentsOfFile: stylePath, encoding: .utf8)
                 if let tmplPath = Bundle.main.path(forResource: "Reader", ofType: "html") {
                     do {
                         let tmpl = try NSMutableString(contentsOfFile: tmplPath, encoding: String.Encoding.utf8.rawValue)
