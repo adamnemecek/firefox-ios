@@ -1410,7 +1410,7 @@ extension BrowserViewController: URLBarDelegate {
         }
 
         // We couldn't build a URL, so check for a matching search keyword.
-        let trimmedText = text.trimmingCharacters(in: CharacterSet.whitespaces)
+        let trimmedText = text.trimmingCharacters(in: .whitespaces)
         guard let possibleKeywordQuerySeparatorSpace = trimmedText.characters.index(of: " ") else {
             submitSearchText(text)
             return
@@ -1421,7 +1421,7 @@ extension BrowserViewController: URLBarDelegate {
 
         profile.bookmarks.getURLForKeywordSearch(possibleKeyword).uponQueue(.main) { result in
             if var urlString = result.successValue,
-                let escapedQuery = possibleQuery.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed),
+                let escapedQuery = possibleQuery.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
                 let range = urlString.range(of: "%s") {
                 urlString.replaceSubrange(range, with: escapedQuery)
 
@@ -2172,22 +2172,20 @@ extension BrowserViewController {
     /// of the page is either to the left or right in the BackForwardList. If that is the case, we navigate there.
 
     func disableReaderMode() {
-        if let tab = tabManager.selectedTab,
-            let webView = tab.webView {
+        guard  let tab = tabManager.selectedTab,
+            let webView = tab.webView else { return }
             let backList = webView.backForwardList.backList
             let forwardList = webView.backForwardList.forwardList
 
-            if let currentURL = webView.backForwardList.currentItem?.url {
-                if let originalURL = currentURL.decodeReaderModeURL {
-                    if backList.count > 1 && backList.last?.url == originalURL {
-                        webView.go(to: backList.last!)
-                    } else if forwardList.count > 0 && forwardList.first?.url == originalURL {
-                        webView.go(to: forwardList.first!)
-                    } else {
-                        if let nav = webView.load(URLRequest(url: originalURL)) {
-                            self.ignoreNavigationInTab(tab, navigation: nav)
-                        }
-                    }
+        if let currentURL = webView.backForwardList.currentItem?.url,
+            let originalURL = currentURL.decodeReaderModeURL {
+            if backList.count > 1 && backList.last?.url == originalURL {
+                webView.go(to: backList.last!)
+            } else if forwardList.count > 0 && forwardList.first?.url == originalURL {
+                webView.go(to: forwardList.first!)
+            } else {
+                if let nav = webView.load(URLRequest(url: originalURL)) {
+                    self.ignoreNavigationInTab(tab, navigation: nav)
                 }
             }
         }
@@ -2617,7 +2615,7 @@ extension BrowserViewController {
     func addSearchEngine(_ searchQuery: String, favicon: Favicon) {
         guard searchQuery != "",
             let iconURL = URL(string: favicon.url),
-            let url = URL(string: searchQuery.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlFragmentAllowed)!),
+            let url = URL(string: searchQuery.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!),
             let shortName = url.domainURL.host else {
                 let alert = ThirdPartySearchAlerts.failedToAddThirdPartySearch()
                 self.present(alert, animated: true, completion: nil)

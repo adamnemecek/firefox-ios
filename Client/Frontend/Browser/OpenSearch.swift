@@ -121,24 +121,21 @@ class OpenSearchEngine: NSObject, NSCoding {
     }
 
     fileprivate func getURLFromTemplate(_ searchTemplate: String, query: String) -> URL? {
-        if let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: CharacterSet.SearchTermsAllowedCharacterSet()) {
+        guard let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: .SearchTermsAllowed) else { return nil }
             // Escape the search template as well in case it contains not-safe characters like symbols
-            let templateAllowedSet = NSMutableCharacterSet()
-            templateAllowedSet.formUnion(with: CharacterSet.URLAllowedCharacterSet())
+        let templateAllowedSet = NSMutableCharacterSet()
+        templateAllowedSet.formUnion(with: .URLAllowed)
 
-            // Allow brackets since we use them in our template as our insertion point
-            templateAllowedSet.formUnion(with: CharacterSet(charactersIn: "{}"))
+        // Allow brackets since we use them in our template as our insertion point
+        templateAllowedSet.formUnion(with: CharacterSet(charactersIn: "{}"))
 
-            if let encodedSearchTemplate = searchTemplate.addingPercentEncoding(withAllowedCharacters: templateAllowedSet as CharacterSet) {
-                let localeString = Locale.current.identifier
-                let urlString = encodedSearchTemplate
-                    .replacingOccurrences(of: SearchTermComponent, with: escapedQuery, options: .literal, range: nil)
-                    .replacingOccurrences(of: LocaleTermComponent, with: localeString, options: .literal, range: nil)
-                return URL(string: urlString)
-            }
+        if let encodedSearchTemplate = searchTemplate.addingPercentEncoding(withAllowedCharacters: templateAllowedSet as CharacterSet) {
+            let localeString = Locale.current.identifier
+            let urlString = encodedSearchTemplate
+                .replacingOccurrences(of: SearchTermComponent, with: escapedQuery, options: .literal, range: nil)
+                .replacingOccurrences(of: LocaleTermComponent, with: localeString, options: .literal, range: nil)
+            return URL(string: urlString)
         }
-
-        return nil
     }
 }
 

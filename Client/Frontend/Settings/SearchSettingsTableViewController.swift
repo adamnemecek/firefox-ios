@@ -281,7 +281,7 @@ class SearchSettingsTableViewController: UITableViewController {
         }
         navigationItem.rightBarButtonItem?.isEnabled = isEditable
         navigationItem.rightBarButtonItem?.action = editing ?
-            #selector(SearchSettingsTableViewController.finishEditing) : #selector(SearchSettingsTableViewController.beginEditing)
+            #selector(finishEditing) : #selector(beginEditing)
         tableView.reloadData()
     }
 }

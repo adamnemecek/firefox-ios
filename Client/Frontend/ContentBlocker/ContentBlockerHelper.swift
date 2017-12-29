@@ -115,7 +115,7 @@ class ContentBlockerHelper {
     private static var heavyInitHasRunOnce = false
 
     init(tab: Tab, profile: Profile) {
-        self.ruleStore = WKContentRuleListStore.default()
+        self.ruleStore = .default()
         self.tab = tab
         self.profile = profile
 

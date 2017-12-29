@@ -75,7 +75,7 @@ class BackForwardTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = UIColor.clear
+        backgroundColor = .clear
         selectionStyle = .none
         
         contentView.addSubview(faviconView)
@@ -116,7 +116,7 @@ class BackForwardTableViewCell: UITableViewCell {
         }
         
         context.saveGState()
-        context.setLineCap(CGLineCap.square)
+        context.setLineCap(.square)
         context.setStrokeColor(BackForwardViewCellUX.bgColor.cgColor)
         context.setLineWidth(1.0)
         context.move(to: CGPoint(x: startPoint.x, y: startPoint.y))
@@ -129,7 +129,7 @@ class BackForwardTableViewCell: UITableViewCell {
         if highlighted {
             self.backgroundColor = UIColor(white: 0, alpha: 0.1)
         } else {
-            self.backgroundColor = UIColor.clear
+            self.backgroundColor = .clear
         }
     }
     
