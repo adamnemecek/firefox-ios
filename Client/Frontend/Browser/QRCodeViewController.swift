@@ -76,7 +76,7 @@ class QRCodeViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: QRCodeViewControllerUX.navigationBarTitleColor]
 
         // Setup the NavigationItem
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "qrcode-goBack"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "qrcode-goBack"), style: .plain, target: self, action: #selector(goBack))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "qrcode-light"), style: .plain, target: self, action: #selector(openLight))
@@ -88,7 +88,7 @@ class QRCodeViewController: UIViewController {
         }
 
         let getAuthorizationStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
-        if getAuthorizationStatus != AVAuthorizationStatus.denied {
+        if getAuthorizationStatus != .denied {
             setupCamera()
         } else {
             let alert = UIAlertController(title: "", message: Strings.ScanQRCodePermissionErrorMessage, preferredStyle: .alert)
@@ -242,15 +242,15 @@ class QRCodeViewController: UIViewController {
         videoPreviewLayer.frame = UIScreen.main.bounds
         switch toInterfaceOrientation {
         case .portrait:
-            videoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientation.portrait
+            videoPreviewLayer.connection.videoOrientation = .portrait
         case .landscapeLeft:
-            videoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientation.landscapeLeft
+            videoPreviewLayer.connection.videoOrientation = .landscapeLeft
         case .landscapeRight:
-            videoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientation.landscapeRight
+            videoPreviewLayer.connection.videoOrientation = .landscapeRight
         case .portraitUpsideDown:
-            videoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientation.portraitUpsideDown
+            videoPreviewLayer.connection.videoOrientation = .portraitUpsideDown
         default:
-            videoPreviewLayer.connection.videoOrientation = AVCaptureVideoOrientation.portrait
+            videoPreviewLayer.connection.videoOrientation = .portrait
         }
     }
 }

@@ -22,7 +22,7 @@ private struct HistoryPanelUX {
 }
 
 private func getDate(_ dayOffset: Int) -> Date {
-    let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+    let calendar = Calendar(identifier: .gregorian)
     let nowComponents = (calendar as NSCalendar).components([.year, .month, .day], from: Date())
     let today = calendar.date(from: nowComponents)!
     return (calendar as NSCalendar).date(byAdding: NSCalendar.Unit.day, value: dayOffset, to: today, options: [])!
@@ -32,7 +32,7 @@ class HistoryPanel: SiteTableViewController, HomePanel {
     weak var homePanelDelegate: HomePanelDelegate?
     private var currentSyncedDevicesCount: Int?
 
-    var events = [NotificationFirefoxAccountChanged, NotificationPrivateDataClearedHistory, NotificationDynamicFontChanged]
+    var events = [Notification.Name.FirefoxAccountChanged, NotificationPrivateDataClearedHistory, .DynamicFontChanged]
     var refreshControl: UIRefreshControl?
 
     fileprivate lazy var longPressRecognizer: UILongPressGestureRecognizer = {
@@ -56,7 +56,7 @@ class HistoryPanel: SiteTableViewController, HomePanel {
     // MARK: - Lifecycle
     init() {
         super.init(nibName: nil, bundle: nil)
-        events.forEach { NotificationCenter.default.addObserver(self, selector: #selector(HistoryPanel.notificationReceived), name: $0, object: nil) }
+        events.forEach { NotificationCenter.default.addObserver(self, selector: #selector(notificationReceived), name: $0, object: nil) }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -95,7 +95,7 @@ class HistoryPanel: SiteTableViewController, HomePanel {
     }
 
     @objc fileprivate func longPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        guard longPressGestureRecognizer.state == UIGestureRecognizerState.began else { return }
+        guard longPressGestureRecognizer.state == .began else { return }
         let touchPoint = longPressGestureRecognizer.location(in: tableView)
         guard let indexPath = tableView.indexPathForRow(at: touchPoint) else { return }
 
@@ -124,13 +124,13 @@ class HistoryPanel: SiteTableViewController, HomePanel {
     func notificationReceived(_ notification: Notification) {
         reloadData()
 
-        switch notification.name {
-        case NotificationFirefoxAccountChanged, NotificationPrivateDataClearedHistory:
+        switch notification {
+        case .FirefoxAccountChanged, .PrivateDataClearedHistory:
             if self.profile.hasSyncableAccount() {
                 resyncHistory()
             }
             break
-        case NotificationDynamicFontChanged:
+        case .DynamicFontChanged:
             if emptyStateOverlayView.superview != nil {
                 emptyStateOverlayView.removeFromSuperview()
             }

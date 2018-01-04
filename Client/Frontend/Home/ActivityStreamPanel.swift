@@ -94,7 +94,7 @@ class ActivityStreamPanel: UICollectionViewController, HomePanel {
 
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didChangeFontSize(notification:)),
-                                               name: NotificationDynamicFontChanged,
+                                               name: .DynamicFontChanged,
                                                object: nil)
         
     }
@@ -165,8 +165,7 @@ extension ActivityStreamPanel {
             switch self {
             case .highlights: return Strings.ASHighlightsTitle
             case .pocket: return Strings.ASPocketTitle
-            case .topSites: return nil
-            case .highlightIntro: return nil
+            case .topSites, .highlightIntro: return nil
             }
         }
 
@@ -180,7 +179,7 @@ extension ActivityStreamPanel {
 
         var footerHeight: CGSize {
             switch self {
-            case .highlights, .highlightIntro, .pocket: return CGSize.zero
+            case .highlights, .highlightIntro, .pocket: return .zero
             case .topSites: return CGSize(width: 50, height: 5)
             }
         }
@@ -299,7 +298,7 @@ extension ActivityStreamPanel: UICollectionViewDelegateFlowLayout {
                 case .pocket:
                     view.title = title
                     view.moreButton.isHidden = false
-                    view.moreButton.addTarget(self, action: #selector(ActivityStreamPanel.showMorePocketStories), for: .touchUpInside)
+                    view.moreButton.addTarget(self, action: #selector(showMorePocketStories), for: .touchUpInside)
                     return view
                 case .topSites:
                     return UICollectionReusableView()
@@ -357,7 +356,7 @@ extension ActivityStreamPanel: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         switch Section(section) {
         case .highlights, .highlightIntro, .pocket:
-            return CGSize.zero
+            return .zero
         case .topSites:
             return Section(section).footerHeight
         }
@@ -993,7 +992,7 @@ class ASHeaderView: UICollectionReusableView {
     lazy fileprivate var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.text = self.title
-        titleLabel.textColor = UIColor.gray
+        titleLabel.textColor = .gray
         titleLabel.font = ASHeaderViewUX.TextFont
         titleLabel.minimumScaleFactor = 0.6
         titleLabel.numberOfLines = 1

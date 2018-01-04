@@ -192,7 +192,7 @@ class ReadingListPanel: UITableViewController, HomePanel {
     init() {
         super.init(nibName: nil, bundle: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ReadingListPanel.notificationReceived), name: NotificationFirefoxAccountChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ReadingListPanel.notificationReceived), name: NotificationDynamicFontChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ReadingListPanel.notificationReceived), name: .DynamicFontChanged, object: nil)
     }
 
     required init!(coder aDecoder: NSCoder) {
@@ -234,7 +234,7 @@ class ReadingListPanel: UITableViewController, HomePanel {
         case NotificationFirefoxAccountChanged:
             refreshReadingList()
             break
-        case NotificationDynamicFontChanged:
+        case .DynamicFontChanged:
             if emptyStateOverlayView.superview != nil {
                 emptyStateOverlayView.removeFromSuperview()
             }
@@ -270,9 +270,9 @@ class ReadingListPanel: UITableViewController, HomePanel {
 
     fileprivate func createEmptyStateOverview() -> UIView {
         let overlayView = UIScrollView(frame: tableView.bounds)
-        overlayView.backgroundColor = UIColor.white
+        overlayView.backgroundColor = .white
         // Unknown why this does not work with autolayout
-        overlayView.autoresizingMask = [UIViewAutoresizing.flexibleHeight, UIViewAutoresizing.flexibleWidth]
+        overlayView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
 
         let containerView = UIView()
         overlayView.addSubview(containerView)

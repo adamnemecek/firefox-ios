@@ -5,13 +5,13 @@
 public let NotificationDataLoginDidChange = Notification.Name("Data:Login:DidChange")
 
 // add a property to allow the observation of firefox accounts
-public let NotificationFirefoxAccountChanged = Notification.Name("FirefoxAccountChangedNotification")
+
 
 public let NotificationFirefoxAccountProfileChanged = Notification.Name("NotificationFirefoxAccountProfileChanged")
 
 public let NotificationFirefoxAccountDeviceRegistrationUpdated = Notification.Name("FirefoxAccountDeviceRegistrationUpdated")
 
-public let NotificationPrivateDataClearedHistory = Notification.Name("PrivateDataClearedHistoryNotification")
+
 
 // Fired when the user finishes navigating to a page and the location has changed
 public let NotificationOnLocationChange = Notification.Name("OnLocationChange")
@@ -28,8 +28,12 @@ public let NotificationFirefoxAccountVerified = Notification.Name("FirefoxAccoun
 // MARK: Notification UserInfo Keys
 
 extension Notification.Name {
+    public static let FirefoxAccountChanged = Notification.Name("FirefoxAccountChangedNotification")
     public static let DidRestoreSession = Notification.Name("NotificationDidRestoreSession")
 
+    public static let PrivateDataClearedHistory = Notification.Name("PrivateDataClearedHistoryNotification")
     public static let UserInfoKeyHasSyncableAccount = Notification.Name("NotificationUserInfoKeyHasSyncableAccount")
+
+    public static let DynamicFontChanged = Notification.Name("NotificationDynamicFontChanged")
 
 }

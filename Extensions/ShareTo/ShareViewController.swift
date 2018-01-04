@@ -98,7 +98,7 @@ class ShareDialogController: UIViewController, UITableViewDataSource, UITableVie
         navItem.leftBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: ShareDialogControllerUX.NavigationBarCancelButtonFont], for: [])
         navItem.leftBarButtonItem?.accessibilityIdentifier = "ShareDialogController.navigationItem.leftBarButtonItem"
 
-        navItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Add", tableName: "ShareTo", comment: "Add button in the share dialog"), style: UIBarButtonItemStyle.done, target: self, action: #selector(ShareDialogController.add))
+        navItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Add", tableName: "ShareTo", comment: "Add button in the share dialog"), style: .done, target: self, action: #selector(ShareDialogController.add))
         navItem.rightBarButtonItem?.setTitleTextAttributes([NSFontAttributeName: ShareDialogControllerUX.NavigationBarAddButtonFont], for: [])
 
         let logo = UIImageView(image: UIImage(named: "Icon-Small"))
@@ -217,7 +217,7 @@ class ShareDialogController: UIViewController, UITableViewDataSource, UITableVie
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.textColor = UIAccessibilityDarkerSystemColorsEnabled() ? UIColor.darkGray : ShareDialogControllerUX.TableRowTextColor
+        cell.textLabel?.textColor = UIAccessibilityDarkerSystemColorsEnabled() ? .darkGray : ShareDialogControllerUX.TableRowTextColor
         cell.textLabel?.font = ShareDialogControllerUX.TableRowFont
         cell.accessoryType = selectedShareDestinations.contains(ShareDestinations[indexPath.row].code) ? .checkmark : .none
         cell.tintColor = ShareDialogControllerUX.TableRowTintColor

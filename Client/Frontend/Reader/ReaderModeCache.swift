@@ -83,7 +83,7 @@ class DiskReaderModeCache: ReaderModeCache {
 
         try FileManager.default.createDirectory(atPath: cacheDirectoryPath, withIntermediateDirectories: true, attributes: nil)
         let string: String = readabilityResult.encode()
-        try string.write(toFile: contentFilePath, atomically: true, encoding: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
+        try string.write(toFile: contentFilePath, atomically: true, encoding: .utf8)
         return
     }
 

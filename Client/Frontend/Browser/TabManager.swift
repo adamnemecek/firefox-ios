@@ -142,6 +142,7 @@ class TabManager: NSObject {
 
     subscript(webView: WKWebView) -> Tab? {
         assert(Thread.isMainThread)
+        return tabs.first { $0.webView == webView }
 
         for tab in tabs where tab.webView === webView {
             return tab
@@ -970,6 +971,7 @@ class TabManagerNavDelegate: NSObject, WKNavigationDelegate {
                  decidePolicyFor navigationResponse: WKNavigationResponse,
                  decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         var res = WKNavigationResponsePolicy.allow
+
         for delegate in delegates {
             delegate.webView?(webView, decidePolicyFor: navigationResponse, decisionHandler: { policy in
                 if policy == .cancel {

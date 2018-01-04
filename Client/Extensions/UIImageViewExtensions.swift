@@ -76,9 +76,7 @@ open class ImageOperation: NSObject, SDWebImageOperation {
     }
 
     @objc open func cancel() {
-        if let cacheOperation = cacheOperation {
-            cacheOperation.cancel()
-        }
+        cacheOperation?.cancel()
     }
 }
 

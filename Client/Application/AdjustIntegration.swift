@@ -88,7 +88,7 @@ class AdjustIntegration: NSObject {
         if let attributionDictionary = attribution.dictionary() {
             let dictionary = NSMutableDictionary(dictionary: attributionDictionary)
             dictionary["_timestamp"] = NSNumber(value: Int64(Date().timeIntervalSince1970) as Int64)
-            let data = try JSONSerialization.data(withJSONObject: dictionary, options: [JSONSerialization.WritingOptions.prettyPrinted])
+            let data = try JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
             try data.write(to: URL(fileURLWithPath: try getAttributionPath()), options: [])
         }
     }
